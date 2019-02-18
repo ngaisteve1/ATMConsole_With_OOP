@@ -1,8 +1,20 @@
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using System.Threading;
 
+public enum SecureMenu
+    {
+        [Description("Check balance")]
+        CheckBalance = 1,
+        [Description("Place Deposit")]
+        PlaceDeposit = 2,
+        [Description("Make Withdrawal")]
+        MakeWithdrawal = 3,
+        [Description("Logout")]
+        Logout = 4
+    }
 public static class ATMScreen
 {
     private static CultureInfo culture = new CultureInfo("ms-MY");
@@ -59,6 +71,7 @@ public static class ATMScreen
     #endregion
 
     #region UIOutput - ATM Menu
+
     public static void ShowMenu1()
     {
         Console.Clear();
@@ -79,8 +92,8 @@ public static class ATMScreen
         Console.WriteLine("| Meybank ATM Secure Menu    |");
         Console.WriteLine("|                            |");
         Console.WriteLine("| 1. Check balance           |");
-        Console.WriteLine("| 2. Deposit                 |");
-        Console.WriteLine("| 3. Withdraw                |");
+        Console.WriteLine("| 2. Place Deposit           |");
+        Console.WriteLine("| 3. Make Withdraw           |");
         Console.WriteLine("| 4. Logout                  |");
         Console.WriteLine("|                            |");
         Console.WriteLine(" ---------------------------");

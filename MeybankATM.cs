@@ -39,16 +39,16 @@ namespace MeybankATMSystem
 
                             switch (ATMScreen.ValidateInputInt(Console.ReadLine()))
                             {
-                                case 1:
+                                case (int)SecureMenu.CheckBalance:
                                     CheckBalance(selectedAccount);
                                     break;
-                                case 2:
+                                case (int)SecureMenu.PlaceDeposit:
                                     PlaceDeposit(selectedAccount);
                                     break;
-                                case 3:
+                                case (int)SecureMenu.MakeWithdrawal:
                                     MakeWithdrawal(selectedAccount);
                                     break;
-                                case 4:
+                                case (int)SecureMenu.Logout:
                                     Console.WriteLine("You have succesfully logout.");
                                     Execute();
                                     break;
@@ -105,6 +105,8 @@ namespace MeybankATMSystem
                 inputAccount = new BankAccount();
 
 
+                Console.WriteLine("\nNote: Actual ATM system will accept user's ATM card to check");
+                Console.Write("to check card number, bank account number and bank account status. \n");
                 Console.Write("Enter ATM Card Number: ");
                 inputAccount.CardNumber = Convert.ToInt32(Console.ReadLine()); // no extra null, empty, space, data type validation here on purpose.
 
