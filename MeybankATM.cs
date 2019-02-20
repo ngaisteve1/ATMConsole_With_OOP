@@ -56,8 +56,8 @@ namespace MeybankATMSystem
                                     Execute();
                                     break;
                                 default:
-                                    Console.WriteLine("Invalid Option Entered.");
-                                    Thread.Sleep(1000);
+                                    ATMScreen.PrintMessage("Invalid Option Entered.",false);
+
                                     break;
                             }
                         }
@@ -109,11 +109,11 @@ namespace MeybankATMSystem
                 Console.WriteLine("\nNote: Actual ATM system will accept user's ATM card to check");
                 Console.Write("to check card number, bank account number and bank account status. \n\n");
                 Console.Write("Enter ATM Card Number: ");
-                inputAccount.CardNumber = Convert.ToInt32(Console.ReadLine()); 
+                inputAccount.CardNumber = Convert.ToInt32(Console.ReadLine());
                 // for brevity, no extra null, empty, space, data type validation here.
 
                 Console.Write("Enter 6 Digit PIN: ");
-                inputAccount.PinCode = Convert.ToInt32(ATMScreen.GetHiddenConsoleInput()); 
+                inputAccount.PinCode = Convert.ToInt32(ATMScreen.GetHiddenConsoleInput());
                 // for brevity, no extra null, empty, space, data type validation here.
 
 
@@ -152,9 +152,9 @@ namespace MeybankATMSystem
                     }
                 }
 
-                if(!pass)
+                if (!pass)
                     ATMScreen.PrintMessage("Invalid Card number or PIN.", false);
-                
+
                 Console.Clear();
             }
         }
@@ -171,8 +171,8 @@ namespace MeybankATMSystem
         public void PlaceDeposit(BankAccount account)
         {
 
-            Console.WriteLine("Note: Actual ATM system will just let you ");
-            Console.Write("place bank notes into ATM machine. \n");
+            Console.WriteLine("\nNote: Actual ATM system will just let you ");
+            Console.Write("place bank notes into ATM machine. \n\n");
             Console.Write("Enter amount: " + ATMScreen.cur);
             transaction_amt = ATMScreen.ValidateInputAmount(Console.ReadLine());
 
@@ -189,11 +189,18 @@ namespace MeybankATMSystem
             }
             else
             {
-                PreviewBankNotesCount(transaction_amt);
+                if (PreviewBankNotesCount(transaction_amt))
+                {
+                    account.Balance = account.Balance + transaction_amt;
 
-                account.Balance = account.Balance + transaction_amt;
+                    ATMScreen.PrintMessage($"You have successfully deposited {ATMScreen.FormatAmount(transaction_amt)}", true);
+                }
+                else
+                {
+                    ATMScreen.PrintMessage($"You have cancelled your action.", false);
+                }
 
-                ATMScreen.PrintMessage($"You have successfully deposited {ATMScreen.FormatAmount(transaction_amt)}", true);
+
             }
         }
 
@@ -232,19 +239,27 @@ namespace MeybankATMSystem
 
         public void PerformThirdPartyTransfer(BankAccount bankAccount)
         {
+            Console.ReadKey();
             throw new NotImplementedException();
         }
 
-        private static void PreviewBankNotesCount(decimal amount)
+        private static bool PreviewBankNotesCount(decimal amount)
         {
             int hundredNotesCount = (int)amount / 100;
             int fiftyNotesCount = ((int)amount % 100) / 50;
             int tenNotesCount = ((int)amount % 50) / 10;
 
-            Console.WriteLine("Summary");
-            Console.WriteLine($"{ATMScreen.cur} 100 x {hundredNotesCount} = {100*hundredNotesCount}");
-            Console.WriteLine($"{ATMScreen.cur} 50 x {fiftyNotesCount} = {50*fiftyNotesCount}");
-            Console.WriteLine($"{ATMScreen.cur} 10 x {tenNotesCount} = {10*tenNotesCount}");
+            Console.WriteLine("\nSummary");
+            Console.WriteLine("-------");
+            Console.WriteLine($"{ATMScreen.cur} 100 x {hundredNotesCount} = {100 * hundredNotesCount}");
+            Console.WriteLine($"{ATMScreen.cur} 50 x {fiftyNotesCount} = {50 * fiftyNotesCount}");
+            Console.WriteLine($"{ATMScreen.cur} 10 x {tenNotesCount} = {10 * tenNotesCount}");
+            Console.Write($"Total amount: {ATMScreen.FormatAmount(amount)}");
+
+            Console.Write("\n\nPress 1 to confirm or 0 to cancel: ");
+            string opt = Console.ReadLine();
+
+            return (opt == "1") ? true : false;
         }
     }
 }
