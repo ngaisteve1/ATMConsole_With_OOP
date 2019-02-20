@@ -5,16 +5,22 @@ using System.Text;
 using System.Threading;
 
 public enum SecureMenu
-    {
-        [Description("Check balance")]
-        CheckBalance = 1,
-        [Description("Place Deposit")]
-        PlaceDeposit = 2,
-        [Description("Make Withdrawal")]
-        MakeWithdrawal = 3,
-        [Description("Logout")]
-        Logout = 4
-    }
+{
+    [Description("Check balance")]
+    CheckBalance = 1,
+
+    [Description("Place Deposit")]
+    PlaceDeposit = 2,
+
+    [Description("Make Withdrawal")]
+    MakeWithdrawal = 3,
+
+    [Description("Third Party Transfer")]
+    ThirdPartyTransfer = 4,
+
+    [Description("Logout")]
+    Logout = 5
+}
 public static class ATMScreen
 {
     private static CultureInfo culture = new CultureInfo("ms-MY");
@@ -91,10 +97,11 @@ public static class ATMScreen
         Console.WriteLine(" ---------------------------");
         Console.WriteLine("| Meybank ATM Secure Menu    |");
         Console.WriteLine("|                            |");
-        Console.WriteLine("| 1. Check balance           |");
-        Console.WriteLine("| 2. Place Deposit           |");
-        Console.WriteLine("| 3. Make Withdraw           |");
-        Console.WriteLine("| 4. Logout                  |");
+        Console.WriteLine("| 1. Balance Enquiry         |");
+        Console.WriteLine("| 2. Cash Deposit            |");
+        Console.WriteLine("| 3. Withdrawal              |");
+        Console.WriteLine("| 4. Third Party Transfer    |");
+        Console.WriteLine("| 5. Logout                  |");
         Console.WriteLine("|                            |");
         Console.WriteLine(" ---------------------------");
         Console.Write("Enter your option: ");

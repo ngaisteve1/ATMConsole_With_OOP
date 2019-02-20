@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace MeybankATMSystem
 {
-    class MeybankATM : IBalance, IDeposit, IWithdrawal
+    class MeybankATM : IBalance, IDeposit, IWithdrawal, IThirdPartyTransfer
     {
         private static int tries;
         private const int maxTries = 3;
@@ -46,6 +46,9 @@ namespace MeybankATMSystem
                                     PlaceDeposit(selectedAccount);
                                     break;
                                 case (int)SecureMenu.MakeWithdrawal:
+                                    MakeWithdrawal(selectedAccount);
+                                    break;
+                                case (int)SecureMenu.ThirdPartyTransfer:
                                     MakeWithdrawal(selectedAccount);
                                     break;
                                 case (int)SecureMenu.Logout:
@@ -106,12 +109,14 @@ namespace MeybankATMSystem
 
 
                 Console.WriteLine("\nNote: Actual ATM system will accept user's ATM card to check");
-                Console.Write("to check card number, bank account number and bank account status. \n");
+                Console.Write("to check card number, bank account number and bank account status. \n\n");
                 Console.Write("Enter ATM Card Number: ");
-                inputAccount.CardNumber = Convert.ToInt32(Console.ReadLine()); // no extra null, empty, space, data type validation here on purpose.
+                inputAccount.CardNumber = Convert.ToInt32(Console.ReadLine()); 
+                // for brevity, no extra null, empty, space, data type validation here.
 
                 Console.Write("Enter 6 Digit PIN: ");
-                inputAccount.PinCode = Convert.ToInt32(ATMScreen.GetHiddenConsoleInput()); // no extra null, empty, space, data type validation here on purpose.
+                inputAccount.PinCode = Convert.ToInt32(ATMScreen.GetHiddenConsoleInput()); 
+                // for brevity, no extra null, empty, space, data type validation here.
 
 
                 System.Console.Write("\nChecking card number and password.");
@@ -137,7 +142,7 @@ namespace MeybankATMSystem
 
                             pass = false;
                             tries++;
-                            ATMScreen.PrintMessage("Invalid Card number or PIN.", false);
+                            //ATMScreen.PrintMessage("Invalid Card number or PIN.", false);
 
                             if (tries >= maxTries)
                             {
@@ -149,12 +154,16 @@ namespace MeybankATMSystem
                         }
                     }
                 }
+
+                if(!pass)
+                    ATMScreen.PrintMessage("Invalid Card number or PIN.", false);
+                
                 Console.Clear();
             }
         }
 
 
-        
+
 
 
         public void CheckBalance(BankAccount bankAccount)
@@ -164,8 +173,14 @@ namespace MeybankATMSystem
 
         public void PlaceDeposit(BankAccount account)
         {
-            Console.Write("Enter your the deposit amount: " + ATMScreen.cur);
+
+            Console.WriteLine("Note: Actual ATM system will just let you ");
+            Console.Write("place bank notes into ATM machine. \n");
+            Console.Write("Enter amount: " + ATMScreen.cur);
             transaction_amt = ATMScreen.ValidateInputAmount(Console.ReadLine());
+
+            System.Console.Write("\nCheck and counting bank notes.");
+            ATMScreen.printDotAnimation();
 
             if (transaction_amt <= 0)
             {
@@ -177,6 +192,8 @@ namespace MeybankATMSystem
             }
             else
             {
+                PreviewBankNotesCount(transaction_amt);
+
                 account.Balance = account.Balance + transaction_amt;
 
                 ATMScreen.PrintMessage($"You have successfully deposited {ATMScreen.FormatAmount(transaction_amt)}", true);
@@ -185,7 +202,10 @@ namespace MeybankATMSystem
 
         public void MakeWithdrawal(BankAccount account)
         {
-            Console.Write("Enter withdraw amount: " + ATMScreen.cur);
+            Console.WriteLine("Note: For GUI or actual ATM system, user can ");
+            Console.Write("choose some default withdrawal amount or custom amount. \n");
+
+            Console.Write("Enter amount: " + ATMScreen.cur);
             transaction_amt = ATMScreen.ValidateInputAmount(Console.ReadLine());
 
             if (transaction_amt <= 0)
@@ -208,10 +228,26 @@ namespace MeybankATMSystem
             {
                 account.Balance = account.Balance - transaction_amt;
 
+
                 ATMScreen.PrintMessage($"Please collect your money. You have successfully withdraw {ATMScreen.FormatAmount(transaction_amt)}", true);
             }
         }
 
+        public void PerformThirdPartyTransfer(BankAccount bankAccount)
+        {
+            throw new NotImplementedException();
+        }
 
+        private static void PreviewBankNotesCount(decimal amount)
+        {
+            int hundredNotesCount = (int)amount / 100;
+            int fiftyNotesCount = ((int)amount % 100) / 50;
+            int tenNotesCount = ((int)amount % 50) / 10;
+
+            Console.WriteLine("Summary");
+            Console.WriteLine($"{ATMScreen.cur} 100 x {hundredNotesCount} = {100*hundredNotesCount}");
+            Console.WriteLine($"{ATMScreen.cur} 50 x {fiftyNotesCount} = {50*fiftyNotesCount}");
+            Console.WriteLine($"{ATMScreen.cur} 10 x {tenNotesCount} = {10*tenNotesCount}");
+        }
     }
 }
