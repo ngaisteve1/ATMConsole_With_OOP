@@ -49,7 +49,7 @@ namespace MeybankATMSystem
                                     MakeWithdrawal(selectedAccount);
                                     break;
                                 case (int)SecureMenu.ThirdPartyTransfer:
-                                    MakeWithdrawal(selectedAccount);
+                                    PerformThirdPartyTransfer(selectedAccount);
                                     break;
                                 case (int)SecureMenu.Logout:
                                     Console.WriteLine("You have succesfully logout.");
