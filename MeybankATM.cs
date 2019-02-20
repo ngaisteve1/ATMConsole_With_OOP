@@ -87,8 +87,6 @@ namespace MeybankATMSystem
 
         private static void Initialization()
         {
-            // withdraw_amt = 0;
-            // deposit_amt = 0;
             transaction_amt = 0;
 
             _accountList = new List<BankAccount>
@@ -142,7 +140,6 @@ namespace MeybankATMSystem
 
                             pass = false;
                             tries++;
-                            //ATMScreen.PrintMessage("Invalid Card number or PIN.", false);
 
                             if (tries >= maxTries)
                             {
