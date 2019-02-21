@@ -68,8 +68,7 @@ namespace MeybankATMSystem
                         System.Environment.Exit(1);
                         break;
                     default:
-                        Console.WriteLine("Invalid Option Entered.");
-                        Thread.Sleep(1000);
+                        ATMScreen.PrintMessage("Invalid Option Entered.",false);
                         break;
                 }
             }
@@ -106,8 +105,8 @@ namespace MeybankATMSystem
                 inputAccount = new BankAccount();
 
 
-                Console.WriteLine("\nNote: Actual ATM system will accept user's ATM card to check");
-                Console.Write("to check card number, bank account number and bank account status. \n\n");
+                Console.WriteLine("\nNote: Actual ATM system will accept user's ATM card to validate");
+                Console.Write("and read card number, bank account number and bank account status. \n\n");
                 Console.Write("Enter ATM Card Number: ");
                 inputAccount.CardNumber = Convert.ToInt32(Console.ReadLine());
                 // for brevity, no extra null, empty, space, data type validation here.
@@ -122,11 +121,11 @@ namespace MeybankATMSystem
 
                 foreach (BankAccount account in _accountList)
                 {
-                    if (inputAccount.CardNumber == account.CardNumber)
+                    if (inputAccount.CardNumber.Equals(account.CardNumber))
                     {
                         selectedAccount = account;
 
-                        if (inputAccount.PinCode == account.PinCode)
+                        if (inputAccount.PinCode.Equals(account.PinCode))
                         {
                             if (selectedAccount.isLocked)
                                 LockAccount();
@@ -206,8 +205,8 @@ namespace MeybankATMSystem
 
         public void MakeWithdrawal(BankAccount account)
         {
-            Console.WriteLine("Note: For GUI or actual ATM system, user can ");
-            Console.Write("choose some default withdrawal amount or custom amount. \n");
+            Console.WriteLine("\nNote: For GUI or actual ATM system, user can ");
+            Console.Write("choose some default withdrawal amount or custom amount. \n\n");
 
             Console.Write("Enter amount: " + ATMScreen.cur);
             transaction_amt = ATMScreen.ValidateInputAmount(Console.ReadLine());
@@ -259,7 +258,7 @@ namespace MeybankATMSystem
             Console.Write("\n\nPress 1 to confirm or 0 to cancel: ");
             string opt = Console.ReadLine();
 
-            return (opt == "1") ? true : false;
+            return (opt.Equals("1")) ? true : false;
         }
     }
 }
