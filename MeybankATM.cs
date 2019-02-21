@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace MeybankATMSystem
 {
-    class MeybankATM : IBalance, IDeposit, IWithdrawal, IThirdPartyTransfer
+    class MeybankATM : IBalance, IDeposit, IWithdrawal, IThirdPartyTransfer, ILogin
     {
         private static int tries;
         private const int maxTries = 3;
@@ -96,7 +96,7 @@ namespace MeybankATMSystem
             };
         }
 
-        private static void CheckCardNoPassword()
+        public void CheckCardNoPassword()
         {
             bool pass = false;
 
