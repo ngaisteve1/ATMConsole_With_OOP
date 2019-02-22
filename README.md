@@ -33,7 +33,7 @@ A system which allow user to key in ATM card no and PIN no. If card no and PIN n
 - while loop
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=sn3S3-FYbA0
-" target="_blank"><img src="https://img.youtube.com/vi/sn3S3-FYbA0/default.jpg" 
+" target="_blank"><img src="https://imgur.com/1JJbxI6" 
 alt="ATM Program Demo Video - Part 2" width="560" height="315" border="10" /></a>
 
 [![ATM Program Demo Video - Part 2](https://imgur.com/1JJbxI6)](http://www.youtube.com/watch?v=sn3S3-FYbA0)
