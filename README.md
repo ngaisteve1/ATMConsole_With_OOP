@@ -22,9 +22,9 @@ A system which allow user to key in ATM card no and PIN no. If card no and PIN n
 - class
 - object
 - Object and collection initializer
-- encapsulation: private and public
+- encapsulation: private, internal and public
+- LINQ to object (LINQ Query syntax)
 - List
-- constructor
 - static
 - this
 - field
@@ -33,6 +33,10 @@ A system which allow user to key in ATM card no and PIN no. If card no and PIN n
 - switch case
 - string interpolation
 - while loop
+- enum
+- region
+- tryParse
+- System.Globalization for local currency symbol and format
 
 ### Video Demo
 - [ATM Program Demo Video - Part 1](http://www.youtube.com/watch?v=sn3S3-FYbA0)
