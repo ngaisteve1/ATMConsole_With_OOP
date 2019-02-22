@@ -21,6 +21,7 @@ public enum SecureMenu
     [Description("Logout")]
     Logout = 5
 }
+
 public static class ATMScreen
 {
     private static CultureInfo culture = new CultureInfo("ms-MY");
@@ -62,6 +63,24 @@ public static class ATMScreen
     #endregion
 
     #region Input - Security
+
+    #region ATM UI Forms
+    public static VMThirdPartyTransfer ThirdPartyTransferForm(){
+        var vMThirdPartyTransfer = new VMThirdPartyTransfer();
+
+        Console.Write("\nRecipient's account number: ");
+        vMThirdPartyTransfer.RecipientBankAccountNumber = Convert.ToInt16(Console.ReadLine()); // no validation here yet.
+
+        Console.Write($"\nTransfer amount: {cur}");
+        vMThirdPartyTransfer.TransferAmount = Convert.ToDecimal(Console.ReadLine());
+
+        Console.Write("\nRecipient's account name: ");
+        vMThirdPartyTransfer.RecipientBankAccountName = Console.ReadLine();
+
+        return vMThirdPartyTransfer;
+    }
+    #endregion
+
     public static string GetHiddenConsoleInput()
     {
         StringBuilder input = new StringBuilder();

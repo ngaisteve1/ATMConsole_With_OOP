@@ -1,3 +1,3 @@
 public interface IThirdPartyTransfer {
-    void PerformThirdPartyTransfer(BankAccount bankAccount);
+    void PerformThirdPartyTransfer(BankAccount bankAccount,VMThirdPartyTransfer vmThirdPartyTransfer);
 }
