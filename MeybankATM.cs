@@ -26,7 +26,7 @@ namespace MeybankATMSystem
 
         public void Execute()
         {
-            Initialization();
+            //Initialization();
             ATMScreen.ShowMenu1();
 
             while (true)
@@ -35,6 +35,8 @@ namespace MeybankATMSystem
                 {
                     case 1:
                         CheckCardNoPassword();
+                        
+                        _listOfTransactions = new List<Transaction>();
 
                         while (true)
                         {
@@ -90,7 +92,7 @@ namespace MeybankATMSystem
             System.Environment.Exit(1);
         }
 
-        private static void Initialization()
+        public void Initialization()
         {
             transaction_amt = 0;
 
@@ -231,23 +233,21 @@ namespace MeybankATMSystem
 
         public void PerformThirdPartyTransfer(BankAccount bankAccount, VMThirdPartyTransfer vMThirdPartyTransfer)
         {
-            Console.ReadKey();
-            Console.WriteLine("\nNote: For GUI or actual ATM system, user can ");
-            Console.Write("choose some default withdrawal amount or custom amount. \n\n");
-
             if (vMThirdPartyTransfer.TransferAmount > 0)
             {
+                // Check giver's account balance - Start
                 if (vMThirdPartyTransfer.TransferAmount > bankAccount.Balance)
                     ATMScreen.PrintMessage($"Withdrawal failed. You do not have enough fund to withdraw {ATMScreen.FormatAmount(transaction_amt)}", false);
                 else if (bankAccount.Balance - vMThirdPartyTransfer.TransferAmount < 20)
                     ATMScreen.PrintMessage($"Withdrawal failed. Your account needs to have minimum {ATMScreen.FormatAmount(minimum_kept_amt)}", false);
+                // Check giver's account balance - End
                 else
                 {
-                    // Check if the receiver's bank account number is valid.
+                    // Check if receiver's bank account number is valid.
                     var selectedBankAccountReceiver = (from b in _accountList
-                                                       where b.AccountNumber == bankAccount.AccountNumber
-                                                       //&& b.Bank == Banks.MBB // Third party is for same bank.
-                                                       select b).FirstOrDefault();
+                        where b.AccountNumber == vMThirdPartyTransfer.RecipientBankAccountNumber
+                        //&& b.Bank == Banks.MBB // Third party is for same bank.
+                        select b).FirstOrDefault();
 
                     if (selectedBankAccountReceiver == null)
                         ATMScreen.PrintMessage($"Third party transfer failed. Receiver bank account number is invalid.", false);
@@ -268,56 +268,7 @@ namespace MeybankATMSystem
                             TransactionDate = DateTime.Now
                         };
                         _listOfTransactions.Add(transaction);
-                        ATMScreen.PrintMessage($"You have successfully transferred out {ATMScreen.FormatAmount(transaction_amt)} to {vMThirdPartyTransfer.RecipientBankAccountName}", true);
-
-                        // Check giver's total transaction amount.                        
-                        //     var transferLimitCheck = (from b in _accountList
-                        //                               join t in _listOfTransactions
-                        //                               on b.AccountNumber equals t.BankAccountNoFrom
-                        //                               where
-                        //                               //&& b.Bank == Banks.MBB // Third party is for same bank.\
-                        //                               t.TransactionDate.Day == DateTime.Now.Day
-                        //                               && t.TransactionDate.Month == DateTime.Now.Month
-                        //                               && t.TransactionDate.Year == DateTime.Now.Year
-                        //                               group t by t.BankAccountNoFrom into groupResult
-                        //                               select new
-                        //                               {
-                        //                                   totalTransactionAmt = groupResult.Sum(s => s.TransactionAmount)
-                        //                               }
-                        //                               ).FirstOrDefault();
-
-                        //     decimal totalTransactionAmt = transferLimitCheck != null ? transferLimitCheck.totalTransactionAmt : 0;
-
-                        //     if (totalTransactionAmt + vMThirdPartyTransfer.TransferAmount >= 30000)
-                        //     {
-                        //         ATMScreen.PrintMessage($"Withdrawal failed. Third party transfer failed. Daily limit {ATMScreen.FormatAmount(30000)} reached. ", false);
-                        //     }
-                        //     else
-                        //     {
-                        //         // Update balance amount (Giver)
-                        //         bankAccount.Balance = bankAccount.Balance - vMThirdPartyTransfer.TransferAmount;
-
-                        //         // Update balance amount (Receiver)
-                        //         selectedBankAccountReceiver.Balance = selectedBankAccountReceiver.Balance + vMThirdPartyTransfer.TransferAmount;
-
-                        //         // Add transaction record.
-                        //         Transaction transaction = new Transaction()
-                        //         {
-                        //             BankAccountId = selectedBankAccount.Id,
-                        //             BankAccountNoFrom = selectedBankAccount.AccountNumber,
-                        //             BankAccountNoTo = thirdParty.BankAccountNumberTo,
-                        //             TransactionAmount = thirdParty.TransferAmount,
-                        //             TransactionDate = DateTime.Now,
-                        //             TransferMode = TransferMode.ThirdPartyTransfer,
-                        //             ReceiverBank = selectedBankAccountReceiver.Bank
-                        //         };
-                        //         db.Transactions.Add(transaction);
-
-                        //         db.SaveChanges();
-
-                        //         ATMScreen.PrintMessage($"You have successfully transferred {ATMScreen.FormatAmount(transaction_amt)}", true);
-                        //     }
-                        // }
+                        ATMScreen.PrintMessage($"You have successfully transferred out {ATMScreen.FormatAmount(vMThirdPartyTransfer.TransferAmount)} to {vMThirdPartyTransfer.RecipientBankAccountName}", true);                        
                     }
                 }
             }

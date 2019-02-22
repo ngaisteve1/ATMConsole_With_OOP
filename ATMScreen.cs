@@ -69,13 +69,13 @@ public static class ATMScreen
         var vMThirdPartyTransfer = new VMThirdPartyTransfer();
 
         Console.Write("\nRecipient's account number: ");
-        vMThirdPartyTransfer.RecipientBankAccountNumber = Convert.ToInt16(Console.ReadLine()); // no validation here yet.
+        vMThirdPartyTransfer.RecipientBankAccountNumber = Convert.ToInt64(Console.ReadLine()); // no validation here yet.
 
         Console.Write($"\nTransfer amount: {cur}");
-        vMThirdPartyTransfer.TransferAmount = Convert.ToDecimal(Console.ReadLine());
+        vMThirdPartyTransfer.TransferAmount = Convert.ToDecimal(Console.ReadLine());// no validation here yet.
 
         Console.Write("\nRecipient's account name: ");
-        vMThirdPartyTransfer.RecipientBankAccountName = Console.ReadLine();
+        vMThirdPartyTransfer.RecipientBankAccountName = Console.ReadLine();// no validation here yet.
 
         return vMThirdPartyTransfer;
     }
