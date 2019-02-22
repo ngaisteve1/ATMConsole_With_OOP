@@ -36,4 +36,6 @@ A system which allow user to key in ATM card no and PIN no. If card no and PIN n
 " target="_blank"><img src="https://img.youtube.com/vi/sn3S3-FYbA0/default.jpg" 
 alt="ATM Program Demo Video - Part 2" width="560" height="315" border="10" /></a>
 
+[![ATM Program Demo Video - Part 2](https://imgur.com/1JJbxI6)](http://www.youtube.com/watch?v=sn3S3-FYbA0)
+
 [If this content is helpful to you, consider to support and buy me a cup of coffee :) ](https://ko-fi.com/V7V2PN67)
