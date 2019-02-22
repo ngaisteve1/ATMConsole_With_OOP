@@ -1,5 +1,5 @@
 # ATMConsole_With_OOP
-with interface, static, class and object. Login. Check Balance. Place Deposit. Make Withdrawal. Third party transfer.
+Implemented Object-Oriented Programming like interface, class and object. Use cases: Login. Check Balance. Place Deposit. Make Withdrawal. Third party transfer. View transactions.
 
 ### Software Development Summary
 - Technology: C#
@@ -18,12 +18,14 @@ A system which allow user to key in ATM card no and PIN no. If card no and PIN n
 - view bank transaction
 - If user key in the wrong pin more than 3 times, the bank account will be locked.
 
-### OOP principels and C# features implemented:
+### OOP principles and C# features implemented:
 - class
 - object
 - Object and collection initializer
+- encapsulation: private and public
 - List
 - constructor
+- static
 - this
 - field
 - property
@@ -32,8 +34,8 @@ A system which allow user to key in ATM card no and PIN no. If card no and PIN n
 - string interpolation
 - while loop
 
-
-Click image to watch ATM Program Demo Video - Part 2
-[![ATM Program Demo Video - Part 2](https://i.imgur.com/1JJbxI6.png)](http://www.youtube.com/watch?v=sn3S3-FYbA0)
+### Video Demo
+- [ATM Program Demo Video - Part 1](http://www.youtube.com/watch?v=sn3S3-FYbA0)
+- [ATM Program Demo Video - Part 2](http://www.youtube.com/watch?v=wUR7553mbyo)
 
 [If this content is helpful to you, consider to support and buy me a cup of coffee :) ](https://ko-fi.com/V7V2PN67)
