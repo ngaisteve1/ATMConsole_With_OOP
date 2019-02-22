@@ -32,10 +32,8 @@ A system which allow user to key in ATM card no and PIN no. If card no and PIN n
 - string interpolation
 - while loop
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=sn3S3-FYbA0
-" target="_blank"><img src="https://i.imgur.com/1JJbxI6.png" 
-alt="ATM Program Demo Video - Part 2" width="560" height="315" border="10" /></a>
 
+Click image to watch ATM Program Demo Video - Part 2
 [![ATM Program Demo Video - Part 2](https://i.imgur.com/1JJbxI6.png)](http://www.youtube.com/watch?v=sn3S3-FYbA0)
 
 [If this content is helpful to you, consider to support and buy me a cup of coffee :) ](https://ko-fi.com/V7V2PN67)
