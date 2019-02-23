@@ -37,6 +37,7 @@ A system which allow user to key in ATM card no and PIN no. If card no and PIN n
 - region
 - tryParse
 - System.Globalization for local currency symbol and format
+- ternary operator ?
 
 ### Video Demo
 - [ATM Program Demo Video - Part 1](http://www.youtube.com/watch?v=sn3S3-FYbA0)
