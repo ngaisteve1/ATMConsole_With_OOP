@@ -35,7 +35,6 @@ A system which allow user to key in ATM card no and PIN no. If card no and PIN n
 - while loop
 - enum
 - region
-- tryParse
 - System.Globalization for local currency symbol and format
 - ternary operator ?
 
