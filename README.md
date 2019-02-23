@@ -27,6 +27,9 @@ Note: Procedural version is available at https://github.com/ngaisteve1/ATMConsol
 #### Assumption:
 - All bank account are the from the same bank
 
+#### Enhancement (To Do):
+- Some generic input validation methods to handle any data type, input length and input label.
+
 ### OOP principles and C# features implemented:
 - class
 - object
