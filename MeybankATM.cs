@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace MeybankATMSystem
 {
-    class MeybankATM : IBalance, IDeposit, IWithdrawal, IThirdPartyTransfer, ILogin
+    class MeybankATM : ILogin, IBalance, IDeposit, IWithdrawal, IThirdPartyTransfer, ITransaction
     {
         private static int tries;
         private const int maxTries = 3;
@@ -35,7 +35,7 @@ namespace MeybankATMSystem
                 {
                     case 1:
                         CheckCardNoPassword();
-                        
+
                         _listOfTransactions = new List<Transaction>();
 
                         while (true)
@@ -59,6 +59,10 @@ namespace MeybankATMSystem
 
                                     PerformThirdPartyTransfer(selectedAccount, vMThirdPartyTransfer);
                                     break;
+                                case (int)SecureMenu.ViewTransaction:
+                                    ViewTransaction(selectedAccount);
+                                    break;
+
                                 case (int)SecureMenu.Logout:
                                     Console.WriteLine("You have succesfully logout.");
                                     Execute();
@@ -245,9 +249,9 @@ namespace MeybankATMSystem
                 {
                     // Check if receiver's bank account number is valid.
                     var selectedBankAccountReceiver = (from b in _accountList
-                        where b.AccountNumber == vMThirdPartyTransfer.RecipientBankAccountNumber
-                        //&& b.Bank == Banks.MBB // Third party is for same bank.
-                        select b).FirstOrDefault();
+                                                       where b.AccountNumber == vMThirdPartyTransfer.RecipientBankAccountNumber
+                                                       //&& b.Bank == Banks.MBB // Third party is for same bank.
+                                                       select b).FirstOrDefault();
 
                     if (selectedBankAccountReceiver == null)
                         ATMScreen.PrintMessage($"Third party transfer failed. Receiver bank account number is invalid.", false);
@@ -268,7 +272,7 @@ namespace MeybankATMSystem
                             TransactionDate = DateTime.Now
                         };
                         _listOfTransactions.Add(transaction);
-                        ATMScreen.PrintMessage($"You have successfully transferred out {ATMScreen.FormatAmount(vMThirdPartyTransfer.TransferAmount)} to {vMThirdPartyTransfer.RecipientBankAccountName}", true);                        
+                        ATMScreen.PrintMessage($"You have successfully transferred out {ATMScreen.FormatAmount(vMThirdPartyTransfer.TransferAmount)} to {vMThirdPartyTransfer.RecipientBankAccountName}", true);
                     }
                 }
             }
@@ -291,6 +295,23 @@ namespace MeybankATMSystem
             string opt = Console.ReadLine();
 
             return (opt.Equals("1")) ? true : false;
+        }
+
+        public void ViewTransaction(BankAccount bankAccount)
+        {
+            if (_listOfTransactions.Count <= 0)
+                 ATMScreen.PrintMessage($"There is no transaction yet.", true);
+            else
+            {
+                foreach (var tran in _listOfTransactions)
+                {
+                    Console.WriteLine($"{tran.BankAccountNoFrom}");
+                }
+                ATMScreen.PrintMessage($"You have performed {_listOfTransactions.Count} transactions.", true);
+            }
+
+            Console.ReadKey();
+
         }
     }
 }

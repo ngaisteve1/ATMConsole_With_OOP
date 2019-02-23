@@ -9,3 +9,14 @@ C:\dotnet\atm\obj\Debug\netcoreapp2.2\atm.AssemblyInfoInputs.cache
 C:\dotnet\atm\obj\Debug\netcoreapp2.2\atm.AssemblyInfo.cs
 C:\dotnet\atm\obj\Debug\netcoreapp2.2\atm.dll
 C:\dotnet\atm\obj\Debug\netcoreapp2.2\atm.pdb
+C:\dotnet\atm3\ATMConsole_With_OOP\bin\Debug\netcoreapp2.2\atm.deps.json
+C:\dotnet\atm3\ATMConsole_With_OOP\bin\Debug\netcoreapp2.2\atm.runtimeconfig.json
+C:\dotnet\atm3\ATMConsole_With_OOP\bin\Debug\netcoreapp2.2\atm.runtimeconfig.dev.json
+C:\dotnet\atm3\ATMConsole_With_OOP\bin\Debug\netcoreapp2.2\atm.dll
+C:\dotnet\atm3\ATMConsole_With_OOP\bin\Debug\netcoreapp2.2\atm.pdb
+C:\dotnet\atm3\ATMConsole_With_OOP\obj\Debug\netcoreapp2.2\atm.csprojAssemblyReference.cache
+C:\dotnet\atm3\ATMConsole_With_OOP\obj\Debug\netcoreapp2.2\atm.csproj.CoreCompileInputs.cache
+C:\dotnet\atm3\ATMConsole_With_OOP\obj\Debug\netcoreapp2.2\atm.AssemblyInfoInputs.cache
+C:\dotnet\atm3\ATMConsole_With_OOP\obj\Debug\netcoreapp2.2\atm.AssemblyInfo.cs
+C:\dotnet\atm3\ATMConsole_With_OOP\obj\Debug\netcoreapp2.2\atm.dll
+C:\dotnet\atm3\ATMConsole_With_OOP\obj\Debug\netcoreapp2.2\atm.pdb

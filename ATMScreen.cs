@@ -6,6 +6,8 @@ using System.Threading;
 
 public enum SecureMenu
 {
+    // Value 1 is needed because menu starts with 1 while enum starts with 0 if no value given.
+
     [Description("Check balance")]
     CheckBalance = 1,
 
@@ -17,9 +19,12 @@ public enum SecureMenu
 
     [Description("Third Party Transfer")]
     ThirdPartyTransfer = 4,
+    
+    [Description("Transaction")]
+    ViewTransaction = 5,
 
     [Description("Logout")]
-    Logout = 5
+    Logout = 6
 }
 
 public static class ATMScreen
@@ -120,7 +125,8 @@ public static class ATMScreen
         Console.WriteLine("| 2. Cash Deposit            |");
         Console.WriteLine("| 3. Withdrawal              |");
         Console.WriteLine("| 4. Third Party Transfer    |");
-        Console.WriteLine("| 5. Logout                  |");
+        Console.WriteLine("| 5. Transactions            |");
+        Console.WriteLine("| 6. Logout                  |");
         Console.WriteLine("|                            |");
         Console.WriteLine(" ---------------------------");
         Console.Write("Enter your option: ");
