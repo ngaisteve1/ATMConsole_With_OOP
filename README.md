@@ -9,14 +9,20 @@ Implemented Object-Oriented Programming like interface, class and object. Use ca
 - Paradigm or pattern of programming: Object-Oriented Programming (OOP)
 - Data: Data of this demo program (Bank Account and Transaction data) are stored using List objects. No database is used on purpose for this demo version.
 
-### Requirements:
-A system which allow user to key in ATM card no and PIN no. If card no and PIN no is correct, user will be given the access to:
-- check balance (how much money available in the bank account)
-- place deposit (how much money you want to put into the bank account)
-- make withdraw (how much money you want to take out from the bank account). User is not allow to withdraw more than the balance amount. A minimum RM20 is needed to maintain the bank account.
-- make third-party-transfer (transfer within the same bank for different bank account).
-- view bank transaction
+### Features / Use Cases:
+- [x] Check account balance
+- [x] Place deposit
+- [x] Make withdraw
+- [x] Check card number and pin against bank account list object (Note: No database is used on purpose to demo the use of list object)
+- [x] Make third-party-transfer (Transfer within the same bank but different account number)
+- [x] View bank transactions
+
+#### Business Rules:
+- User is not allow to withdraw more than the balance amount. A minimum RM20 is needed to maintain the bank account.
 - If user key in the wrong pin more than 3 times, the bank account will be locked.
+
+#### Assumption:
+- All bank account are the from the same bank
 
 ### OOP principles and C# features implemented:
 - class
