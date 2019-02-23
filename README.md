@@ -1,5 +1,7 @@
 # ATMConsole_With_OOP
-Implemented Object-Oriented Programming like interface, class and object. Use cases: Login. Check Balance. Place Deposit. Make Withdrawal. Third party transfer. View transactions.
+Implemented Object-Oriented Programming like interface, class and object. 
+
+Note: Procedural version is available at https://github.com/ngaisteve1/ATMConsole_Without_OOP. This procedual version will have lesser features compare to this OOP version.
 
 ### Software Development Summary
 - Technology: C#
@@ -8,6 +10,7 @@ Implemented Object-Oriented Programming like interface, class and object. Use ca
 - IDE: Visual Studio Code (Version 1.31.1)
 - Paradigm or pattern of programming: Object-Oriented Programming (OOP)
 - Data: Data of this demo program (Bank Account and Transaction data) are stored using List objects. No database is used on purpose for this demo version.
+
 
 ### <img class="emoji" alt="atm" height="20" width="20" src="https://github.githubassets.com/images/icons/emoji/unicode/1f3e7.png"> <img class="emoji" alt="credit_card" height="20" width="20" src="https://github.githubassets.com/images/icons/emoji/unicode/1f4b3.png"> ATM Basic Features / Use Cases:
 - [x] Check account balance
@@ -46,6 +49,6 @@ Implemented Object-Oriented Programming like interface, class and object. Use ca
 
 ### Video Demo
 - [ATM Program Demo Video - Part 1](http://www.youtube.com/watch?v=sn3S3-FYbA0)
-- [ATM Program Demo Video - Part 2](http://www.youtube.com/watch?v=wUR7553mbyo)
+- [ATM Program Demo Video - Part 2](http://www.youtube.com/watch?v=wUR7553mbyo) 
 
 [If this content is helpful to you, consider to support and buy me a cup of coffee :) ](https://ko-fi.com/V7V2PN67)
