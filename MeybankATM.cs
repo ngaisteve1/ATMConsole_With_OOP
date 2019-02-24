@@ -170,10 +170,6 @@ namespace MeybankATMSystem
             }
         }
 
-
-
-
-
         public void CheckBalance(BankAccount bankAccount)
         {
             ATMScreen.PrintMessage($"Your bank account balance amount is: {ATMScreen.FormatAmount(bankAccount.Balance)}", true);
@@ -194,18 +190,27 @@ namespace MeybankATMSystem
                 ATMScreen.PrintMessage("Amount needs to be more than zero. Try again.", false);
             else if (transaction_amt % 10 != 0)
                 ATMScreen.PrintMessage($"Key in the deposit amount only with multiply of 10. Try again.", false);
+            else if (!PreviewBankNotesCount(transaction_amt))
+                ATMScreen.PrintMessage($"You have cancelled your action.", false);
             else
             {
-                if (PreviewBankNotesCount(transaction_amt))
+                // Bind transaction_amt to Transaction object
+                // Add transaction record - Start
+                var transaction = new Transaction()
                 {
-                    account.Balance = account.Balance + transaction_amt;
+                    BankAccountNoFrom = account.AccountNumber,
+                    BankAccountNoTo = account.AccountNumber,
+                    TransactionType = TransactionType.Deposit,
+                    TransactionAmount = transaction_amt,
+                    TransactionDate = DateTime.Now
+                };
+                InsertTransaction(account, transaction);
+                // Add transaction record - End
 
-                    ATMScreen.PrintMessage($"You have successfully deposited {ATMScreen.FormatAmount(transaction_amt)}", true);
-                }
-                else
-                    ATMScreen.PrintMessage($"You have cancelled your action.", false);
+                // Another method to update account balance.
+                account.Balance = account.Balance + transaction_amt;
 
-
+                ATMScreen.PrintMessage($"You have successfully deposited {ATMScreen.FormatAmount(transaction_amt)}", true);
             }
         }
 
@@ -227,55 +232,71 @@ namespace MeybankATMSystem
                 ATMScreen.PrintMessage($"Key in the deposit amount only with multiply of 10. Try again.", false);
             else
             {
+                // Bind transaction_amt to Transaction object
+                // Add transaction record - Start
+                var transaction = new Transaction()
+                {
+                    BankAccountNoFrom = account.AccountNumber,
+                    BankAccountNoTo = account.AccountNumber,
+                    TransactionType = TransactionType.Withdrawal,
+                    TransactionAmount = transaction_amt,
+                    TransactionDate = DateTime.Now
+                };
+                InsertTransaction(account, transaction);
+                // Add transaction record - End
+
+                // Another method to update account balance.
                 account.Balance = account.Balance - transaction_amt;
 
                 ATMScreen.PrintMessage($"Please collect your money. You have successfully withdraw {ATMScreen.FormatAmount(transaction_amt)}", true);
             }
         }
 
-
-
         public void PerformThirdPartyTransfer(BankAccount bankAccount, VMThirdPartyTransfer vMThirdPartyTransfer)
         {
-            if (vMThirdPartyTransfer.TransferAmount > 0)
-            {
+            if (vMThirdPartyTransfer.TransferAmount <= 0)
+                ATMScreen.PrintMessage("Amount needs to be more than zero. Try again.", false);
+            else if (vMThirdPartyTransfer.TransferAmount > bankAccount.Balance)
                 // Check giver's account balance - Start
-                if (vMThirdPartyTransfer.TransferAmount > bankAccount.Balance)
-                    ATMScreen.PrintMessage($"Withdrawal failed. You do not have enough fund to withdraw {ATMScreen.FormatAmount(transaction_amt)}", false);
-                else if (bankAccount.Balance - vMThirdPartyTransfer.TransferAmount < 20)
-                    ATMScreen.PrintMessage($"Withdrawal failed. Your account needs to have minimum {ATMScreen.FormatAmount(minimum_kept_amt)}", false);
-                // Check giver's account balance - End
+                ATMScreen.PrintMessage($"Withdrawal failed. You do not have enough fund to withdraw {ATMScreen.FormatAmount(transaction_amt)}", false);
+            else if (bankAccount.Balance - vMThirdPartyTransfer.TransferAmount < 20)
+                ATMScreen.PrintMessage($"Withdrawal failed. Your account needs to have minimum {ATMScreen.FormatAmount(minimum_kept_amt)}", false);
+            // Check giver's account balance - End
+            else
+            {
+                // Check if receiver's bank account number is valid.
+                var selectedBankAccountReceiver = (from b in _accountList
+                                                   where b.AccountNumber == vMThirdPartyTransfer.RecipientBankAccountNumber
+                                                   select b).FirstOrDefault();
+
+                if (selectedBankAccountReceiver == null)
+                    ATMScreen.PrintMessage($"Third party transfer failed. Receiver bank account number is invalid.", false);
+                else if (selectedBankAccountReceiver.FullName != vMThirdPartyTransfer.RecipientBankAccountName)
+                    ATMScreen.PrintMessage($"Third party transfer failed. Recipient's account name does not match.", false);
                 else
                 {
-                    // Check if receiver's bank account number is valid.
-                    var selectedBankAccountReceiver = (from b in _accountList
-                                                       where b.AccountNumber == vMThirdPartyTransfer.RecipientBankAccountNumber
-                                                       //&& b.Bank == Banks.MBB // Third party is for same bank.
-                                                       select b).FirstOrDefault();
-
-                    if (selectedBankAccountReceiver == null)
-                        ATMScreen.PrintMessage($"Third party transfer failed. Receiver bank account number is invalid.", false);
-                    else
+                    // Bind transaction_amt to Transaction object
+                    // Add transaction record - Start
+                    Transaction transaction = new Transaction()
                     {
-                        // Update balance amount (Giver)
-                        bankAccount.Balance = bankAccount.Balance - vMThirdPartyTransfer.TransferAmount;
+                        BankAccountNoFrom = bankAccount.AccountNumber,
+                        BankAccountNoTo = vMThirdPartyTransfer.RecipientBankAccountNumber,
+                        TransactionType = TransactionType.ThirdPartyTransfer,
+                        TransactionAmount = vMThirdPartyTransfer.TransferAmount,
+                        TransactionDate = DateTime.Now
+                    };
+                    _listOfTransactions.Add(transaction);
+                    ATMScreen.PrintMessage($"You have successfully transferred out {ATMScreen.FormatAmount(vMThirdPartyTransfer.TransferAmount)} to {vMThirdPartyTransfer.RecipientBankAccountName}", true);
+                    // Add transaction record - End
 
-                        // Update balance amount (Receiver)
-                        selectedBankAccountReceiver.Balance = selectedBankAccountReceiver.Balance + vMThirdPartyTransfer.TransferAmount;
+                    // Update balance amount (Giver)
+                    bankAccount.Balance = bankAccount.Balance - vMThirdPartyTransfer.TransferAmount;
 
-                        // Add transaction record.
-                        Transaction transaction = new Transaction()
-                        {
-                            BankAccountNoFrom = bankAccount.AccountNumber,
-                            BankAccountNoTo = vMThirdPartyTransfer.RecipientBankAccountNumber,
-                            TransactionAmount = vMThirdPartyTransfer.TransferAmount,
-                            TransactionDate = DateTime.Now
-                        };
-                        _listOfTransactions.Add(transaction);
-                        ATMScreen.PrintMessage($"You have successfully transferred out {ATMScreen.FormatAmount(vMThirdPartyTransfer.TransferAmount)} to {vMThirdPartyTransfer.RecipientBankAccountName}", true);
-                    }
+                    // Update balance amount (Receiver)
+                    selectedBankAccountReceiver.Balance = selectedBankAccountReceiver.Balance + vMThirdPartyTransfer.TransferAmount;
                 }
             }
+
         }
 
         private static bool PreviewBankNotesCount(decimal amount)
@@ -300,7 +321,7 @@ namespace MeybankATMSystem
         public void ViewTransaction(BankAccount bankAccount)
         {
             if (_listOfTransactions.Count <= 0)
-                 ATMScreen.PrintMessage($"There is no transaction yet.", true);
+                ATMScreen.PrintMessage($"There is no transaction yet.", true);
             else
             {
                 foreach (var tran in _listOfTransactions)
@@ -312,6 +333,11 @@ namespace MeybankATMSystem
 
             Console.ReadKey();
 
+        }
+
+        public void InsertTransaction(BankAccount bankAccount, Transaction transaction)
+        {
+            _listOfTransactions.Add(transaction);
         }
     }
 }
