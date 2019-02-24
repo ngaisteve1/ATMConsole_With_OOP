@@ -5,6 +5,7 @@ using System.Text;
 
 using System.Globalization;
 using System.Threading;
+using ConsoleTables;
 
 namespace MeybankATMSystem
 {
@@ -320,18 +321,25 @@ namespace MeybankATMSystem
 
         public void ViewTransaction(BankAccount bankAccount)
         {
+
             if (_listOfTransactions.Count <= 0)
                 ATMScreen.PrintMessage($"There is no transaction yet.", true);
             else
             {
+
+                var table = new ConsoleTable("Type", "From", "To", "Amount", "Transaction Date");
+
                 foreach (var tran in _listOfTransactions)
                 {
-                    Console.WriteLine($"{tran.BankAccountNoFrom}");
+                    table.AddRow(tran.TransactionType, tran.BankAccountNoFrom, tran.BankAccountNoTo, tran.TransactionAmount,
+                    tran.TransactionDate);
                 }
+                table.Options.EnableCount = false;
+                table.Write();
                 ATMScreen.PrintMessage($"You have performed {_listOfTransactions.Count} transactions.", true);
             }
 
-            Console.ReadKey();
+            //Console.ReadKey();
 
         }
 
