@@ -3,12 +3,6 @@ using System.Text;
 using System.Threading;
 using System.Globalization;
 
-public enum DataType
-{
-    typeString,
-    typeInt64,
-    typeDecimal
-}
 public static class Utility
 {
     private static CultureInfo culture = new CultureInfo("ms-MY");
@@ -113,39 +107,22 @@ public static class Utility
     //     return amount1;
     // }
 
-    private static bool ValidateNumber(string message, DataType _dataType, out Int64 amount)
-    {
-        //Console.WriteLine(message);
-        return Int64.TryParse(message, out amount)
-            && amount > 0;
-    }
+    // private static bool ValidateNumber(string message, DataType _dataType, out Int64 amount)
+    // {
+    //     //Console.WriteLine(message);
+    //     return Int64.TryParse(message, out amount) && amount > 0;
+    // }
 
-    private static bool ValidateLength(string message, int validationLength = 0)
-    {
-        return (message.Length == validationLength) ? true : false;
-    }
+    // private static bool ValidateLength(string message, int validationLength = 0)
+    // {
+    //     return (message.Length == validationLength) ? true : false;
+    // }
 
     public static string GetRawInput(string message)
     {
         Console.Write($"Enter {message}: ");
         return Console.ReadLine();
     }
-
-    // public static int ValidateInputInt(string input)
-    // {
-    //     int myInt = 0;
-
-    //     if (!String.IsNullOrWhiteSpace(input))
-    //     {
-    //         if (int.TryParse(input, out myInt))
-    //             return myInt;
-    //         else
-    //             return -1;
-
-    //     }
-    //     else
-    //         return -1;
-    // }
 
     public static string GetHiddenConsoleInput()
     {
@@ -161,9 +138,9 @@ public static class Utility
     }
 
     #region UIOutput - UX and output format
-    public static void printDotAnimation()
+    public static void printDotAnimation(int timer = 10)
     {
-        for (var x = 0; x < 10; x++)
+        for (var x = 0; x < timer; x++)
         {
             System.Console.Write(".");
             Thread.Sleep(100);

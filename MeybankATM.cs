@@ -65,7 +65,8 @@ namespace MeybankATMSystem
                                     break;
 
                                 case (int)SecureMenu.Logout:
-                                    Console.WriteLine("You have succesfully logout.");
+                                    Utility.PrintMessage("You have succesfully logout. Please collect your ATM card..", true);
+
                                     Execute();
                                     break;
                                 default:
@@ -76,8 +77,9 @@ namespace MeybankATMSystem
                         }
 
                     case 2:
-                        Console.WriteLine("Please collect your ATM card. Thank you for using Meybank. ");
-                        Thread.Sleep(1000);
+                        Console.Write("\nThank you for using Meybank. Exiting program now .");
+                        Utility.printDotAnimation(15);
+
                         System.Environment.Exit(1);
                         break;
                     default:
@@ -314,8 +316,8 @@ namespace MeybankATMSystem
             Console.WriteLine($"{ATMScreen.cur} 10 x {tenNotesCount} = {10 * tenNotesCount}");
             Console.Write($"Total amount: {Utility.FormatAmount(amount)}");
 
-            Console.Write("\n\nPress 1 to confirm or 0 to cancel: ");
-            string opt = Console.ReadLine();
+            //Console.Write("\n\nPress 1 to confirm or 0 to cancel: ");
+            string opt = Utility.GetValidIntInputAmt("Press 1 to confirm or 0 to cancel").ToString();
 
             return (opt.Equals("1")) ? true : false;
         }
@@ -338,9 +340,6 @@ namespace MeybankATMSystem
                 table.Write();
                 Utility.PrintMessage($"You have performed {_listOfTransactions.Count} transactions.", true);
             }
-
-            //Console.ReadKey();
-
         }
 
         public void InsertTransaction(BankAccount bankAccount, Transaction transaction)
