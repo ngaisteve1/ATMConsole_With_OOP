@@ -32,72 +32,28 @@ public static class ATMScreen
     private static CultureInfo culture = new CultureInfo("ms-MY");
     internal static string cur = "RM ";
 
-
-
-    #region Input - Validation
-    public static int ValidateInputInt(string input)
-    {
-        int myInt = 0;
-
-        if (!String.IsNullOrWhiteSpace(input))
-        {
-            if (int.TryParse(input, out myInt))
-                return myInt;
-            else
-                return -1;
-
-        }
-        else
-            return -1;
-    }
-
-    public static decimal ValidateInputAmount(string input)
-    {
-        decimal myInt = 0;
-
-        if (!String.IsNullOrWhiteSpace(input))
-        {
-            if (decimal.TryParse(input, out myInt))
-                return myInt;
-            else
-                return -1;
-        }
-        else
-            return -1;
-    }
-    #endregion
-
     #region Input - Security
 
     #region ATM UI Forms
     public static VMThirdPartyTransfer ThirdPartyTransferForm(){
         var vMThirdPartyTransfer = new VMThirdPartyTransfer();
 
-        Console.Write("\nRecipient's account number: ");
-        vMThirdPartyTransfer.RecipientBankAccountNumber = Convert.ToInt64(Console.ReadLine()); // no validation here yet.
+        ///Console.Write("\nRecipient's account number: ");
+        //vMThirdPartyTransfer.RecipientBankAccountNumber = Convert.ToInt64(Console.ReadLine()); // no validation here yet.
+        vMThirdPartyTransfer.RecipientBankAccountNumber = Utility.GetValidIntInputAmt("recipient's account number");
 
-        Console.Write($"\nTransfer amount: {cur}");
-        vMThirdPartyTransfer.TransferAmount = Convert.ToDecimal(Console.ReadLine());// no validation here yet.
+        //Console.Write($"\nTransfer amount: {cur}");
+        vMThirdPartyTransfer.TransferAmount = Utility.GetValidDecimalInputAmt("amount");
 
-        Console.Write("\nRecipient's account name: ");
-        vMThirdPartyTransfer.RecipientBankAccountName = Console.ReadLine();// no validation here yet.
+        //Console.Write("\nRecipient's account name: ");
+        vMThirdPartyTransfer.RecipientBankAccountName = Utility.GetRawInput("recipient's account name");
+        // no validation here yet.
 
         return vMThirdPartyTransfer;
     }
     #endregion
 
-    public static string GetHiddenConsoleInput()
-    {
-        StringBuilder input = new StringBuilder();
-        while (true)
-        {
-            var key = Console.ReadKey(true);
-            if (key.Key == ConsoleKey.Enter) break;
-            if (key.Key == ConsoleKey.Backspace && input.Length > 0) input.Remove(input.Length - 1, 1);
-            else if (key.Key != ConsoleKey.Backspace) input.Append(key.KeyChar);
-        }
-        return input.ToString();
-    }
+
     #endregion
 
     #region UIOutput - ATM Menu
@@ -112,7 +68,7 @@ public static class ATMScreen
         Console.WriteLine("| 2. Exit                |");
         Console.WriteLine("|                        |");
         Console.WriteLine(" ------------------------");
-        Console.Write("Enter your option: ");
+        //Console.Write("Enter your option: ");
     }
 
     public static void ShowMenu2()
@@ -129,7 +85,7 @@ public static class ATMScreen
         Console.WriteLine("| 6. Logout                  |");
         Console.WriteLine("|                            |");
         Console.WriteLine(" ---------------------------");
-        Console.Write("Enter your option: ");
+        //Console.Write("Enter your option: ");
     }
     #endregion
 

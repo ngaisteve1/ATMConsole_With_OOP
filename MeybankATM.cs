@@ -32,7 +32,7 @@ namespace MeybankATMSystem
 
             while (true)
             {
-                switch (ATMScreen.ValidateInputInt(Console.ReadLine()))
+                switch (Utility.GetValidIntInputAmt("your option"))
                 {
                     case 1:
                         CheckCardNoPassword();
@@ -43,7 +43,7 @@ namespace MeybankATMSystem
                         {
                             ATMScreen.ShowMenu2();
 
-                            switch (ATMScreen.ValidateInputInt(Console.ReadLine()))
+                            switch (Utility.GetValidIntInputAmt("your option"))
                             {
                                 case (int)SecureMenu.CheckBalance:
                                     CheckBalance(selectedAccount);
@@ -117,16 +117,15 @@ namespace MeybankATMSystem
             {
                 inputAccount = new BankAccount();
 
-
                 Console.WriteLine("\nNote: Actual ATM system will accept user's ATM card to validate");
                 Console.Write("and read card number, bank account number and bank account status. \n\n");
-                Console.Write("Enter ATM Card Number: ");
-                inputAccount.CardNumber = Convert.ToInt32(Console.ReadLine());
-                // for brevity, no extra null, empty, space, data type validation here.
+                //Console.Write("Enter ATM Card Number: ");
+                //inputAccount.CardNumber = Convert.ToInt32(Console.ReadLine());
+                inputAccount.CardNumber = Utility.GetValidIntInputAmt("ATM Card Number");
 
                 Console.Write("Enter 6 Digit PIN: ");
-                inputAccount.PinCode = Convert.ToInt32(ATMScreen.GetHiddenConsoleInput());
-                // for brevity, no extra null, empty, space, data type validation here.
+                inputAccount.PinCode = Convert.ToInt32(Utility.GetHiddenConsoleInput());
+                // for brevity, length 6 is not validated and data type.
 
 
                 System.Console.Write("\nChecking card number and password.");
@@ -181,8 +180,8 @@ namespace MeybankATMSystem
 
             Console.WriteLine("\nNote: Actual ATM system will just let you ");
             Console.Write("place bank notes into ATM machine. \n\n");
-            Console.Write("Enter amount: " + ATMScreen.cur);
-            transaction_amt = ATMScreen.ValidateInputAmount(Console.ReadLine());
+            //Console.Write("Enter amount: " + ATMScreen.cur);
+            transaction_amt = Utility.GetValidDecimalInputAmt("amount");
 
             System.Console.Write("\nCheck and counting bank notes.");
             ATMScreen.printDotAnimation();
@@ -220,8 +219,10 @@ namespace MeybankATMSystem
             Console.WriteLine("\nNote: For GUI or actual ATM system, user can ");
             Console.Write("choose some default withdrawal amount or custom amount. \n\n");
 
-            Console.Write("Enter amount: " + ATMScreen.cur);
-            transaction_amt = ATMScreen.ValidateInputAmount(Console.ReadLine());
+            // Console.Write("Enter amount: " + ATMScreen.cur);
+            // transaction_amt = ATMScreen.ValidateInputAmount(Console.ReadLine());
+
+            transaction_amt = Utility.GetValidDecimalInputAmt("amount");
 
             if (transaction_amt <= 0)
                 ATMScreen.PrintMessage("Amount needs to be more than zero. Try again.", false);
@@ -326,7 +327,6 @@ namespace MeybankATMSystem
                 ATMScreen.PrintMessage($"There is no transaction yet.", true);
             else
             {
-
                 var table = new ConsoleTable("Type", "From", "To", "Amount", "Transaction Date");
 
                 foreach (var tran in _listOfTransactions)
