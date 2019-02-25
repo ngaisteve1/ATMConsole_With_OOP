@@ -52,6 +52,6 @@ Note: Procedural version is available at https://github.com/ngaisteve1/ATMConsol
 
 ### Video Demo
 - [ATM Program Demo Video - Part 1](http://www.youtube.com/watch?v=sn3S3-FYbA0)
-- [ATM Program Demo Video - Part 2](http://www.youtube.com/watch?v=wUR7553mbyo) 
+- [ATM Program Demo Video - Part 2](http://www.youtube.com/watch?v=JViV7a0ALFY) 
 
 [If this content is helpful to you, consider to support and buy me a cup of coffee :) ](https://ko-fi.com/V7V2PN67)
