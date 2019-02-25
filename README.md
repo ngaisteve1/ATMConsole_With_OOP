@@ -10,7 +10,7 @@ Note: Procedural version is available at https://github.com/ngaisteve1/ATMConsol
 - IDE: Visual Studio Code (Version 1.31.1)
 - Paradigm or pattern of programming: Object-Oriented Programming (OOP)
 - Data: Data of this demo program (Bank Account and Transaction data) are stored using List objects. No database is used on purpose for this demo version.
-
+- NuGet: ConsoleTables (Version 2.2), CsConsoleFormat (Coming Soon)
 
 ### <img class="emoji" alt="atm" height="20" width="20" src="https://github.githubassets.com/images/icons/emoji/unicode/1f3e7.png"> <img class="emoji" alt="credit_card" height="20" width="20" src="https://github.githubassets.com/images/icons/emoji/unicode/1f4b3.png"> ATM Basic Features / Use Cases:
 - [x] Check account balance
@@ -26,6 +26,9 @@ Note: Procedural version is available at https://github.com/ngaisteve1/ATMConsol
 
 #### Assumption:
 - All bank account are the from the same bank
+
+#### Enhancement (To Do):
+- Some generic input validation methods to handle any data type, input length and input label.
 
 ### OOP principles and C# features implemented:
 - class
