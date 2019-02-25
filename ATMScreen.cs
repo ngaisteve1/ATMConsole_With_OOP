@@ -29,10 +29,7 @@ public enum SecureMenu
 
 public static class ATMScreen
 {
-    private static CultureInfo culture = new CultureInfo("ms-MY");
     internal static string cur = "RM ";
-
-    #region Input - Security
 
     #region ATM UI Forms
     public static VMThirdPartyTransfer ThirdPartyTransferForm(){
@@ -53,9 +50,6 @@ public static class ATMScreen
     }
     #endregion
 
-
-    #endregion
-
     #region UIOutput - ATM Menu
 
     public static void ShowMenu1()
@@ -68,7 +62,6 @@ public static class ATMScreen
         Console.WriteLine("| 2. Exit                |");
         Console.WriteLine("|                        |");
         Console.WriteLine(" ------------------------");
-        //Console.Write("Enter your option: ");
     }
 
     public static void ShowMenu2()
@@ -85,39 +78,10 @@ public static class ATMScreen
         Console.WriteLine("| 6. Logout                  |");
         Console.WriteLine("|                            |");
         Console.WriteLine(" ---------------------------");
-        //Console.Write("Enter your option: ");
     }
     #endregion
 
-    #region UIOutput - UX and output format
-    public static void printDotAnimation()
-    {
-        for (var x = 0; x < 10; x++)
-        {
-            System.Console.Write(".");
-            Thread.Sleep(100);
-        }
-        Console.WriteLine();
-    }
-
-    public static string FormatAmount(decimal amt)
-    {
-        return String.Format(culture, "{0:C2}", amt);
-    }
-
-    public static void PrintMessage(string msg, bool success)
-    {
-        if (success)
-            Console.ForegroundColor = ConsoleColor.Yellow;
-        else
-            Console.ForegroundColor = ConsoleColor.Red;
-
-        Console.WriteLine(msg);
-        Console.ResetColor();
-        Console.WriteLine("Press any key to continue");
-        Console.ReadKey();
-    }
-    #endregion
+    
 
 
 

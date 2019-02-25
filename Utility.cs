@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+using System.Threading;
+using System.Globalization;
 
 public enum DataType
 {
@@ -9,6 +11,7 @@ public enum DataType
 }
 public static class Utility
 {
+    private static CultureInfo culture = new CultureInfo("ms-MY");
     public static decimal GetValidDecimalInputAmt(string input)
     {
         bool valid = false;
@@ -21,7 +24,7 @@ public static class Utility
             rawInput = GetRawInput(input);
             valid = decimal.TryParse(rawInput, out amount);
             if (!valid)
-                ATMScreen.PrintMessage("Invalid input. Try again.", false);
+                PrintMessage("Invalid input. Try again.", false);
         }
 
         return amount;
@@ -39,7 +42,7 @@ public static class Utility
             rawInput = GetRawInput(input);
             valid = Int64.TryParse(rawInput, out amount);
             if (!valid)
-                ATMScreen.PrintMessage("Invalid input. Try again.", false);
+                PrintMessage("Invalid input. Try again.", false);
         }
 
         return amount;
@@ -156,4 +159,34 @@ public static class Utility
         }
         return input.ToString();
     }
+
+    #region UIOutput - UX and output format
+    public static void printDotAnimation()
+    {
+        for (var x = 0; x < 10; x++)
+        {
+            System.Console.Write(".");
+            Thread.Sleep(100);
+        }
+        Console.WriteLine();
+    }
+
+    public static string FormatAmount(decimal amt)
+    {
+        return String.Format(culture, "{0:C2}", amt);
+    }
+
+    public static void PrintMessage(string msg, bool success)
+    {
+        if (success)
+            Console.ForegroundColor = ConsoleColor.Yellow;
+        else
+            Console.ForegroundColor = ConsoleColor.Red;
+
+        Console.WriteLine(msg);
+        Console.ResetColor();
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
+    }
+    #endregion
 }
