@@ -314,10 +314,10 @@ namespace MeybankATMSystem
             Console.WriteLine($"{ATMScreen.cur} 100 x {hundredNotesCount} = {100 * hundredNotesCount}");
             Console.WriteLine($"{ATMScreen.cur} 50 x {fiftyNotesCount} = {50 * fiftyNotesCount}");
             Console.WriteLine($"{ATMScreen.cur} 10 x {tenNotesCount} = {10 * tenNotesCount}");
-            Console.Write($"Total amount: {Utility.FormatAmount(amount)}");
+            Console.Write($"Total amount: {Utility.FormatAmount(amount)}\n\n");
 
             //Console.Write("\n\nPress 1 to confirm or 0 to cancel: ");
-            string opt = Utility.GetValidIntInputAmt("Press 1 to confirm or 0 to cancel").ToString();
+            string opt = Utility.GetValidIntInputAmt("1 to confirm or 0 to cancel").ToString();
 
             return (opt.Equals("1")) ? true : false;
         }
