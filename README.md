@@ -27,6 +27,10 @@ Note: Procedural version is available at https://github.com/ngaisteve1/ATMConsol
 #### Assumption:
 - All bank account are the from the same bank
 
+### Activity Diagram
+![atm_activity_diagram](https://user-images.githubusercontent.com/21274590/53474610-8615c080-3aa8-11e9-99b2-b1cb32f7ec1c.png)
+
+
 #### Enhancement (To Do):
 - [ ] Fluent Validation to handle input validation of any data type and input length (min, max, fixed)
 
