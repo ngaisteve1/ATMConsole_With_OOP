@@ -2,8 +2,8 @@
 Implemented Object-Oriented Programming like interface, class and object. 
 
 #### Other Versions
-- Procedural version is available at https://github.com/ngaisteve1/ATMConsole_Without_OOP. This procedual version will have lesser features compare to this OOP version.
-- Database and Entity Framework version - https://github.com/ngaisteve1/ATMConsole_WithDB
+- Procedural version - https://github.com/ngaisteve1/ATMConsole_Without_OOP. This version will have lesser features.
+- Database and Entity Framework version - https://github.com/ngaisteve1/ATMConsole_WithDB. This version will have more features.
 
 ### Software Development Summary
 - Technology: C#
