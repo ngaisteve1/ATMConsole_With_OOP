@@ -35,7 +35,7 @@ Note: Procedural version is available at https://github.com/ngaisteve1/ATMConsol
 - [ ] Fluent Validation to handle input validation of any data type and input length (min, max, fixed)
 
 ### OOP principles and C# features implemented:
-- class
+- class (POCO class and utility class)
 - object
 - Object and collection initializer
 - encapsulation: private, internal and public
